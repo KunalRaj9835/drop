@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState } from 'react';
+import JoinModal from '../components/JoinModal';
 
 export default function ThreePageNavigation() {
   const [showGreeting, setShowGreeting] = useState(true);
   const [activeSection, setActiveSection] = useState<SectionKey | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleGreetingClick = () => {
     setShowGreeting(false);
@@ -16,6 +18,10 @@ export default function ThreePageNavigation() {
     } else {
       setActiveSection(section);
     }
+  };
+
+  const handleJoinClick = () => {
+    setShowModal(true);
   };
 
   const getZIndex = (section: string) => {
@@ -133,6 +139,8 @@ export default function ThreePageNavigation() {
     return content[section];
   };
 
+
+
   // Greeting Screen
   if (showGreeting) {
     return (
@@ -155,7 +163,7 @@ export default function ThreePageNavigation() {
     );
   }
 
-  // Main Navigation (your existing code)
+  // Main Navigation
   return (
     <div className="fixed inset-0 w-full h-full">
       {/* Background layers */}
@@ -235,16 +243,27 @@ export default function ThreePageNavigation() {
                 </p>
               ))}
             </div>
-            {/* Close button for treeking (black background) - appears in UP section */}
+            {/* Join and Close buttons for treeking */}
             {activeSection === 'treeking' && (
-              <div 
-                className="absolute bottom-4 right-4 text-white text-2xl cursor-pointer hover:opacity-70 font-bold"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveSection(null);
-                }}
-              >
-                ×
+              <div className="absolute bottom-4 right-4 flex items-center space-x-3">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleJoinClick();
+                  }}
+                  className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-all duration-200 font-medium"
+                >
+                  Join
+                </button>
+                <div 
+                  className="text-white text-2xl cursor-pointer hover:opacity-70 font-bold"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveSection(null);
+                  }}
+                >
+                  ×
+                </div>
               </div>
             )}
           </div>
@@ -261,16 +280,27 @@ export default function ThreePageNavigation() {
                 </p>
               ))}
             </div>
-            {/* Close button for camping (purple background) - appears in MIDDLE section */}
+            {/* Join and Close buttons for camping */}
             {activeSection === 'camping' && (
-              <div 
-                className="absolute bottom-4 right-4 text-white text-2xl cursor-pointer hover:opacity-70 font-bold"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveSection(null);
-                }}
-              >
-                ×
+              <div className="absolute bottom-4 right-4 flex items-center space-x-3">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleJoinClick();
+                  }}
+                  className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-all duration-200 font-medium"
+                >
+                  Join
+                </button>
+                <div 
+                  className="text-white text-2xl cursor-pointer hover:opacity-70 font-bold"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveSection(null);
+                  }}
+                >
+                  ×
+                </div>
               </div>
             )}
           </div>
@@ -287,21 +317,35 @@ export default function ThreePageNavigation() {
                 </p>
               ))}
             </div>
-            {/* Close button for concert (pink background) - appears in DOWN section */}
+            {/* Join and Close buttons for concert */}
             {activeSection === 'concert' && (
-              <div 
-                className="absolute bottom-4 right-4 text-white text-2xl cursor-pointer hover:opacity-70 font-bold"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveSection(null);
-                }}
-              >
-                ×
+              <div className="absolute bottom-4 right-4 flex items-center space-x-3">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleJoinClick();
+                  }}
+                  className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-all duration-200 font-medium"
+                >
+                  Join
+                </button>
+                <div 
+                  className="text-white text-2xl cursor-pointer hover:opacity-70 font-bold"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveSection(null);
+                  }}
+                >
+                  ×
+                </div>
               </div>
             )}
           </div>
         </div>
       )}
+
+      {/* Join Modal */}
+      <JoinModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }
