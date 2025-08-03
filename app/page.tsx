@@ -1,3 +1,2 @@
-export default function Template({ children }: { children: React.ReactNode }) {
-  return children
-}
+const Home = () => null;
+export default Home;
